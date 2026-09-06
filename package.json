@@ -1,0 +1,53 @@
+{
+  "name": "dofus-touch-desktop",
+  "version": "0.1.0",
+  "description": "Clean Electron wrapper that runs the official Dofus Touch client on desktop.",
+  "license": "GPL-3.0-only",
+  "main": "dist/main/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && electron .",
+    "watch": "tsc -w",
+    "dist": "tsc && electron-builder",
+    "dist:win": "tsc && electron-builder --win --x64",
+    "dist:mac": "tsc && electron-builder --mac",
+    "dist:linux": "tsc && electron-builder --linux"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0",
+    "typescript": "^5.6.0"
+  },
+  "build": {
+    "appId": "com.dtd.launcher",
+    "productName": "Dofus Touch Desktop",
+    "files": [
+      "dist/**/*",
+      "game-base/**/*"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

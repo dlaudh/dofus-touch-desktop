@@ -1,0 +1,3 @@
+[submodule "game-base"]
+	path = game-base
+	url = https://github.com/dlaudh/dofus-touch-game-base.git

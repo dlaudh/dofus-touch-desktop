@@ -1,0 +1,22 @@
+Dofus Touch Desktop
+Copyright (C) 2026 Victor Rosano
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License version 3, as published by the
+Free Software Foundation. See LICENSE for the full text.
+
+
+Third-party code
+----------------
+
+The Electron wrapper in src/ is this project's own code, but it is distributed
+together with the game-base submodule, whose mods, desktop layout rules and
+client-bundle patches are derived from Lindo
+(https://github.com/zenoxs/lindo and https://github.com/zenoxs/lindo-game-base),
+GPL-3.0. See game-base/NOTICE for the file-by-file list. That license is why
+this repository is GPL-3.0 as well.
+
+Dofus Touch is the property of Ankama. This project ships none of Ankama's
+code: the client bundle is downloaded from Ankama's own servers at runtime and
+patched locally on the user's machine. It is not affiliated with or endorsed by
+Ankama.
