@@ -27,6 +27,11 @@ export interface Settings {
   localMods?: boolean;
   /** Directory of extra mod files to stage alongside the game-base. */
   localModsDir?: string;
+  /**
+   * Report one launch event (the app version, nothing else) so the project can
+   * see how many people run it. Set to false to send nothing at all.
+   */
+  analytics?: boolean;
   /** Keys the wrapper does not consume, passed through to the renderer. */
   [key: string]: unknown;
 }

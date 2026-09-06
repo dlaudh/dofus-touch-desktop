@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain, Notification } from "electron";
 import { ensureGameBase, provisionClientBuild, fetchAppVersion } from "./gameBase";
 import { startServer } from "./server";
+import { initAnalytics } from "./analytics";
 import { openGameWindow, openAuthWindow, setServerPort } from "./windows";
 import { buildMenu } from "./menu";
 import { FALLBACK_APP_VERSION } from "./constants";
@@ -45,6 +46,7 @@ app.whenReady().then(async () => {
   appVersion = await fetchAppVersion();
   const port = await startServer();
   setServerPort(port);
+  initAnalytics(port);
 
   // Download + patch the client bundle in the background; when it lands, reload
   // any game window that opened before it was ready (first run only).

@@ -1,4 +1,6 @@
-# Dofus Touch Desktop
+<img src="build/icon.png" width="120" align="right" alt="DT-Desktop icon">
+
+# DT-Desktop
 
 A clean Electron wrapper that runs the **official Dofus Touch client** on
 desktop (Windows/macOS/Linux). Rebuilt from scratch in TypeScript — no bots or
@@ -17,7 +19,29 @@ risk. This project is not affiliated with or endorsed by Ankama.
 
 ---
 
-## Run
+## Download
+
+Grab an installer from the [latest release](https://github.com/dlaudh/dofus-touch-desktop/releases/latest):
+
+| Platform | File |
+| --- | --- |
+| Windows 10/11 (x64) | `DT-Desktop-1.0.0-setup.exe` (installer) or the `.zip` (portable) |
+| macOS, Apple Silicon | `DT-Desktop-1.0.0-arm64.dmg` |
+| macOS, Intel | `DT-Desktop-1.0.0-x64.dmg` |
+
+The builds are **unsigned**, so both systems will complain about an unknown
+developer:
+
+- **macOS** — the first launch reports the app is damaged or from an
+  unidentified developer. Clear the quarantine flag once:
+  ```bash
+  xattr -cr "/Applications/DT-Desktop.app"
+  ```
+  or right-click the app > Open, then confirm.
+- **Windows** — SmartScreen shows "Windows protected your PC". Click *More
+  info* > *Run anyway*.
+
+## Run from source
 
 ```bash
 npm install
@@ -53,6 +77,22 @@ Desktop fixes (mouse→touch translation, window-shape layout) live in
 `game-base/fixes.js` and `game-base/fixes.css`; client patches in
 `game-base/patches.json`. Optional quality-of-life mods (`game-base/mods/*.js`,
 loaded by `game-base/mods.js`) are always on.
+
+## Telemetry
+
+The app logs **one event per launch**, carrying the app version and nothing
+else. Google Analytics derives the rest on its own: how many people run it, and
+a country from the request IP. No account, no character, no machine identifier,
+no error text — the wrapper never sends anything about what you do in the game.
+
+Turn it off in `<userData>/settings.json`:
+
+```json
+{ "analytics": false }
+```
+
+or for a single run, `DTD_ANALYTICS=0`. Disabled, the app opens no analytics
+window and makes no request at all.
 
 ## Structure
 

@@ -22,7 +22,7 @@ export function openGameWindow(): BrowserWindow {
   const win = new BrowserWindow({
     width: 1024,
     height: 768,
-    title: "Dofus Touch Desktop",
+    title: "DT-Desktop",
     webPreferences: {
       preload: PRELOAD,
       partition,
