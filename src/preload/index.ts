@@ -28,6 +28,12 @@ contextBridge.exposeInMainWorld("__dtd", {
   openAuth: (url: string) => ipcRenderer.invoke("dtd:open-auth", url),
   /** The auth window closes itself on redirect; no-op for API parity. */
   closeAuth: () => {},
+  /**
+   * Report a failed IndexedDB open. The host clears this window's store and
+   * reloads; it resolves false when it declines (already repaired once), and
+   * the client is left to show its own "Error IDB01".
+   */
+  idbFailed: (reason: string) => ipcRenderer.invoke("dtd:idb-failed", reason),
   /** Open another isolated game window (one account per window). */
   newWindow: () => ipcRenderer.invoke("dtd:new-window"),
   /** Native desktop notification from a game event. */

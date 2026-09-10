@@ -13,6 +13,11 @@ export function setServerPort(port: number): void {
   serverPort = port;
 }
 
+/** The session partition backing a game window (one account per window). */
+export function partitionOf(win: BrowserWindow): string | undefined {
+  return partitions.get(win);
+}
+
 const PRELOAD = path.join(__dirname, "..", "preload", "index.js");
 
 /** Open a fresh, isolated game window (one account per window). */
