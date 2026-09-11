@@ -141,21 +141,26 @@ function applyPatches(text: string): string {
     return text;
   }
   let applied = 0;
-  let skipped = 0;
+  const skipped: string[] = [];
   for (const p of patches.filter((p) => p.file === "build/script.js")) {
     try {
       const re = new RegExp(p.find);
       if (!re.test(text)) {
-        skipped++;
+        skipped.push(p.note ?? p.find);
         continue;
       }
       text = text.replace(re, p.replace);
       applied++;
-    } catch {
-      skipped++;
+    } catch (e) {
+      skipped.push(`${p.note ?? p.find} — bad pattern: ${(e as Error).message}`);
     }
   }
-  console.log(`[dtd] patches: ${applied} applied, ${skipped} skipped`);
+  console.log(`[dtd] patches: ${applied} applied, ${skipped.length} skipped`);
+  // Name them. A skipped patch is a feature that quietly stopped existing, and a
+  // bare count says nothing about which: the menu dock patch sat dead through a
+  // whole client release — every window shape stuck on the portrait dock —
+  // because "8 applied, 1 skipped" reads like a rounding error.
+  for (const note of skipped) console.warn("[dtd] patch SKIPPED:", note);
   return text;
 }
 
