@@ -18,6 +18,17 @@ export interface Settings {
   /** WebGL anti-aliasing (smoother edges). */
   antialias: boolean;
   /**
+   * Width/height ratio at or below which the menu docks along the bottom
+   * instead of down the right — the shape where a bottom dock reads as a
+   * tablet and a side dock would crowd the map. Above it, the menu goes to
+   * the right. 0 pins the right dock; a huge number pins the bottom one.
+   *
+   * The client's own threshold is IPAD_SCREEN_RATIO = 1.5, which is an iPad
+   * rule: it calls a 1368x996 desktop window portrait and docks the whole
+   * interface along the bottom.
+   */
+  menuDockRatio: number;
+  /**
    * URL scheme the auth window intercepts to complete a login. The client asks
    * for `dofustouch://` because that is baked into its bundle, but nothing
    * checks that what comes back matches.
@@ -40,6 +51,7 @@ const DEFAULTS: Settings = {
   fps: 0,
   pixelRatio: 2,
   antialias: true,
+  menuDockRatio: 1.2,
   deeplinkScheme: "dofustouch",
 };
 
@@ -75,6 +87,7 @@ export function loadSettings(): Settings {
       fps: s.fps,
       pixelRatio: s.pixelRatio,
       antialias: s.antialias,
+      menuDockRatio: s.menuDockRatio,
       deeplinkScheme: s.deeplinkScheme,
     })
   );

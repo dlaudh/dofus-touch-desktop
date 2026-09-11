@@ -19,6 +19,7 @@ let settings: Settings = {
   fps: 60,
   pixelRatio: 1,
   antialias: true,
+  menuDockRatio: 1.2,
   deeplinkScheme: "dofustouch",
 };
 ipcMain.on("dtd:settings", (e) => {
