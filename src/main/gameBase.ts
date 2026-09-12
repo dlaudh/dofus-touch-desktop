@@ -41,6 +41,26 @@ export function ensureGameBase(): void {
   // silently dropped them, leaving mods.js requesting scripts that 404.
   copyJsTree(path.join(src, "mods"), path.join(dir, "mods"));
 
+  // index.html asks for settings.js on every launch. The wrapper never needs
+  // it — window.__dtd carries the settings, and it wins — but a copy of this
+  // directory served by anything else has no main process and reads them from
+  // here, so the page requests it either way. Leave a commented stub so the
+  // request is answered rather than logged as a 404, and so a deployment has
+  // a file to fill in.
+  //
+  // Written only when absent: it is not in STATIC_FILES for the same reason.
+  // A deployment that edits it keeps its edits across launches.
+  const settingsJs = path.join(dir, "settings.js");
+  if (!fs.existsSync(settingsJs)) {
+    fs.writeFileSync(
+      settingsJs,
+      "// Settings for a copy of this directory served outside the wrapper.\n" +
+        "// Under the wrapper this file is ignored: window.__dtd wins.\n" +
+        "//\n" +
+        '// window.__dtdSettings = { configUrl: "http://host:port", localMods: true };\n',
+    );
+  }
+
   stageLocalMods(dir);
 }
 
